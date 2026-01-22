@@ -1,6 +1,6 @@
 {
   "name": "清晰之声 - Articulation Training Assistant",
-  "description": "A professional AI-powered articulation training platform designed to help users improve pronunciation through scientific assessment and personalized training plans.",
+  "description": "智能口齿训练辅助系统，基于科学评估与个性化计划提升发音清晰度。",
   "requestFramePermissions": [
     "microphone"
   ]

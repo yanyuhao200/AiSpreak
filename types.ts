@@ -9,19 +9,23 @@ export interface User {
   };
   profile: {
     problemPhonemes: string[];
-    currentLevel: number;
+    currentLevel: number; // 1-10
   };
   progress: {
     streakDays: number;
-    points: number;
     totalMinutes: number;
+    totalSessions: number;
+    points: number;
     lastTrained: string | null;
+    history: { date: string; score: number }[];
   };
 }
 
+export type ExerciseType = 'character' | 'word' | 'sentence' | 'tongueTwister';
+
 export interface Exercise {
   id: string;
-  type: 'character' | 'word' | 'sentence' | 'tongueTwister';
+  type: ExerciseType;
   text: string;
   pinyin?: string;
   targetPhoneme: string;
@@ -31,21 +35,22 @@ export interface Exercise {
 
 export interface AssessmentResult {
   scores: {
-    duration: number;
-    volume: number;
-    fluency: number;
-    overall: number;
+    duration: number; // 0-100
+    volume: number; // 0-100
+    fluency: number; // 0-100
+    overall: number; // 0-100
   };
   feedback: string[];
-  suggestions: string[];
+  suggestions: {
+    shortTerm: string[];
+    longTerm: string[];
+  };
 }
 
-export interface TrainingSession {
+export interface Badge {
   id: string;
-  startTime: Date;
-  exercises: {
-    exercise: Exercise;
-    result?: AssessmentResult;
-    audioUrl?: string;
-  }[];
+  name: string;
+  icon: string;
+  condition: string;
+  unlocked: boolean;
 }

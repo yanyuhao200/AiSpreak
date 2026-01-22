@@ -1,34 +1,46 @@
 
 import { AssessmentResult } from '../types';
 
-export const assessAudio = async (blob: Blob, targetText: string): Promise<AssessmentResult> => {
-  // In a real app, this would use a Web Audio API analysis or send to an AI model
-  // For MVP, we simulate scientific feedback based on duration and audio characteristics
+export const assessPronunciation = async (audioBlob: Blob, targetText: string): Promise<AssessmentResult> => {
+  // In a real environment, we would use Web Audio API to analyze AudioBuffer 
+  // or send to an AI model. Here we simulate a realistic scientific analysis.
   
-  const mockDurationScore = Math.floor(70 + Math.random() * 25);
-  const mockVolumeScore = Math.floor(65 + Math.random() * 30);
-  const mockFluencyScore = Math.floor(60 + Math.random() * 35);
+  // Simulation: Wait for processing
+  await new Promise(r => setTimeout(r, 1500));
   
-  const overall = Math.floor((mockDurationScore + mockVolumeScore + mockFluencyScore) / 3);
+  const randomFactor = Math.random();
   
-  const feedbacks = [];
-  if (mockDurationScore < 80) feedbacks.push("发音时长略短，建议放慢语速，让音节更饱满。");
-  if (mockVolumeScore < 80) feedbacks.push("音量稳定性有待提高，注意气息的持续支撑。");
-  if (overall >= 90) feedbacks.push("太棒了！发音非常清晰。");
-  
-  const suggestions = [
-    "尝试在发音时心中默数1-2-3",
-    "对着镜子观察口型，确保发音到位"
-  ];
+  const durationScore = Math.floor(75 + randomFactor * 20);
+  const volumeScore = Math.floor(65 + randomFactor * 30);
+  const fluencyScore = Math.floor(60 + randomFactor * 35);
+  const overall = Math.floor((durationScore + volumeScore + fluencyScore) / 3);
+
+  const feedback: string[] = [];
+  if (durationScore < 85) {
+    feedback.push(`发音时长稍短，建议放慢语速，让每个音节更饱满。`);
+  } else {
+    feedback.push(`语速控制良好，音节时长接近标准。`);
+  }
+
+  if (volumeScore < 75) {
+    feedback.push(`音量支撑不够平稳，尝试保持腹式呼吸以提供稳定气流。`);
+  }
+
+  if (overall > 90) {
+    feedback.push(`表现卓越！清晰度非常高。`);
+  }
 
   return {
     scores: {
-      duration: mockDurationScore,
-      volume: mockVolumeScore,
-      fluency: mockFluencyScore,
-      overall: overall
+      duration: durationScore,
+      volume: volumeScore,
+      fluency: fluencyScore,
+      overall
     },
-    feedback: feedbacks,
-    suggestions: suggestions
+    feedback,
+    suggestions: {
+      shortTerm: ["练习腹式呼吸", "观察口型"],
+      longTerm: ["坚持28天计划", "专项练习翘舌音"]
+    }
   };
 };

@@ -28,8 +28,7 @@ export const SYLLABLE_DATABASE: Record<string, { description: string; mouthPosit
     exercises: [
       { id: 'l-c-1', type: 'character', text: '利', pinyin: 'lì', targetPhoneme: 'l', difficulty: 1 },
       { id: 'l-w-1', type: 'word', text: '力量', targetPhoneme: 'l', difficulty: 1 },
-      { id: 'l-s-1', type: 'sentence', text: '我们要有改变的力量。', targetPhoneme: 'l', difficulty: 2 },
-      { id: 'l-t-1', type: 'tongueTwister', text: '蓝教练带领吕教练练习力量。', targetPhoneme: 'l', difficulty: 3 }
+      { id: 'l-s-1', type: 'sentence', text: '我们要有改变的力量。', targetPhoneme: 'l', difficulty: 2 }
     ]
   },
   'n': {
@@ -43,15 +42,18 @@ export const SYLLABLE_DATABASE: Record<string, { description: string; mouthPosit
   }
 };
 
-export const getExercisesForPhonemes = (phonemes: string[], count: number = 5): Exercise[] => {
+export const getExercisesForUser = (problemPhonemes: string[], count: number = 5): Exercise[] => {
   const pool: Exercise[] = [];
-  phonemes.forEach(p => {
+  problemPhonemes.forEach(p => {
     if (SYLLABLE_DATABASE[p]) {
       pool.push(...SYLLABLE_DATABASE[p].exercises);
     }
   });
   
-  if (pool.length === 0) return [];
-  
+  if (pool.length === 0) {
+    // Fallback to all if user has no specified problems
+    Object.values(SYLLABLE_DATABASE).forEach(group => pool.push(...group.exercises));
+  }
+
   return [...pool].sort(() => Math.random() - 0.5).slice(0, count);
 };

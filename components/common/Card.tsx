@@ -15,15 +15,9 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ children, className, title }) => {
   return (
-    <div className={cn("bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden", className)}>
-      {title && (
-        <div className="px-6 py-4 border-b border-gray-50 bg-gray-50/50">
-          <h3 className="font-semibold text-gray-800">{title}</h3>
-        </div>
-      )}
-      <div className="p-6">
-        {children}
-      </div>
+    <div className={cn("bg-white rounded-3xl p-6 border border-gray-100 shadow-sm", className)}>
+      {title && <h3 className="text-lg font-bold text-gray-800 mb-4">{title}</h3>}
+      {children}
     </div>
   );
 };
