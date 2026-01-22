@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dashboard } from './pages/Dashboard';
 import { TrainingSession } from './components/training/TrainingSession';
